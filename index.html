@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Chatbot</title>
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 </head>
 <body>
-    <h1>Chatbot</h1>
-    
-    <div id="n8n-chat"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js"></script>
     <script>
-        N8nChat.init({
-            webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
-            mode: 'embedded',
-            containerId: 'n8n-chat'
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log("Intentando cargar chat...");
+            try {
+                N8nChat.init({
+                    webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
+                    mode: 'window'
+                });
+            } catch (e) {
+                console.error("Error crítico:", e);
+            }
         });
     </script>
 </body>
