@@ -1,22 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <title>Chatbot Cargando...</title>
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 </head>
 <body>
+    <h1>Cargando el Chatbot...</h1>
+
     <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js"></script>
+    
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            console.log("Intentando cargar chat...");
-            try {
+        // Esperamos a que el objeto N8nChat esté disponible
+        function initChat() {
+            if (typeof N8nChat !== 'undefined') {
                 N8nChat.init({
                     webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
-                    mode: 'window'
+                    mode: 'window',
+                    showWelcomeScreen: true
                 });
-            } catch (e) {
-                console.error("Error crítico:", e);
+                console.log("Chat iniciado exitosamente");
+            } else {
+                // Si aún no carga, reintenta en 500ms
+                console.log("Esperando a n8n...");
+                setTimeout(initChat, 500);
             }
-        });
+        }
+        
+        initChat();
     </script>
 </body>
 </html>
