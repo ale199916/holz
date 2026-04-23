@@ -2,30 +2,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Activo</title>
+    <title>Chatbot</title>
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 </head>
 <body>
-
-    <h1>Sitio de Pruebas</h1>
+    <h1>Chatbot</h1>
+    
+    <div id="n8n-chat"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js"></script>
-    
     <script>
-        window.onload = () => {
-            console.log("Iniciando chat...");
-            try {
-                N8nChat.createChat({
-                    webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
-                    mode: 'window',
-                    showWelcomeScreen: true
-                });
-                console.log("Chat creado correctamente");
-            } catch (error) {
-                console.error("Error al crear el chat:", error);
-            }
-        };
+        N8nChat.init({
+            webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
+            mode: 'embedded',
+            containerId: 'n8n-chat'
+        });
     </script>
 </body>
 </html>
