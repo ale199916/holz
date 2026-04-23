@@ -9,20 +9,27 @@
 <body>
 
     <h1>Bienvenido</h1>
-    <p>El chat se abrirá en unos segundos...</p>
 
-    <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js" defer></script>
     
     <script>
-        // Configuración para el modo ventana (flotante)
-        window.addEventListener('load', () => {
-            N8nChat.createChat({
-                webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
-                mode: 'window',
-                showWelcomeScreen: true,
-                defaultLanguage: 'es'
-            });
-        });
+        // Esta función espera hasta que N8nChat esté disponible globalmente
+        function initChat() {
+            if (typeof N8nChat !== 'undefined') {
+                N8nChat.createChat({
+                    webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
+                    mode: 'window',
+                    showWelcomeScreen: true
+                });
+                console.log("Chat iniciado correctamente");
+            } else {
+                console.log("Esperando librería...");
+                setTimeout(initChat, 300); // Reintenta cada 300ms
+            }
+        }
+
+        // Ejecutar la espera
+        window.addEventListener('load', initChat);
     </script>
 </body>
 </html>
