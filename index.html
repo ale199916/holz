@@ -2,34 +2,43 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Chatbot</title>
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <title>Chatbot</title>
 </head>
 <body>
+    <h1>Cargando...</h1>
 
-    <h1>Bienvenido</h1>
-
-    <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js" defer></script>
-    
     <script>
-        // Esta función espera hasta que N8nChat esté disponible globalmente
-        function initChat() {
-            if (typeof N8nChat !== 'undefined') {
-                N8nChat.createChat({
-                    webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
-                    mode: 'window',
-                    showWelcomeScreen: true
-                });
-                console.log("Chat iniciado correctamente");
-            } else {
-                console.log("Esperando librería...");
-                setTimeout(initChat, 300); // Reintenta cada 300ms
-            }
-        }
+        // Inyectamos el CSS dinámicamente
+        const link = document.createElement('link');
+        link.href = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
 
-        // Ejecutar la espera
-        window.addEventListener('load', initChat);
+        // Inyectamos el JS dinámicamente
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js';
+        
+        script.onload = function() {
+            console.log("Librería cargada, inicializando...");
+            // Usamos un pequeño retraso para asegurar que el DOM esté listo
+            setTimeout(() => {
+                try {
+                    N8nChat.createChat({
+                        webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
+                        mode: 'window',
+                        showWelcomeScreen: true
+                    });
+                } catch(e) {
+                    console.error("Error al ejecutar createChat:", e);
+                }
+            }, 500);
+        };
+        
+        script.onerror = function() {
+            console.error("No se pudo cargar el archivo desde el CDN");
+        };
+
+        document.body.appendChild(script);
     </script>
 </body>
 </html>
