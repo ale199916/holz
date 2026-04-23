@@ -5,40 +5,23 @@
     <title>Chatbot</title>
 </head>
 <body>
-    <h1>Cargando...</h1>
+    <h1>Chatbot</h1>
 
+    <script src="https://unpkg.com/@n8n/chat/dist/chat.bundle.js"></script>
+    
     <script>
-        // Inyectamos el CSS dinámicamente
-        const link = document.createElement('link');
-        link.href = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css';
-        link.rel = 'stylesheet';
-        document.head.appendChild(link);
-
-        // Inyectamos el JS dinámicamente
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js';
-        
-        script.onload = function() {
-            console.log("Librería cargada, inicializando...");
-            // Usamos un pequeño retraso para asegurar que el DOM esté listo
-            setTimeout(() => {
-                try {
-                    N8nChat.createChat({
-                        webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
-                        mode: 'window',
-                        showWelcomeScreen: true
-                    });
-                } catch(e) {
-                    console.error("Error al ejecutar createChat:", e);
-                }
-            }, 500);
-        };
-        
-        script.onerror = function() {
-            console.error("No se pudo cargar el archivo desde el CDN");
-        };
-
-        document.body.appendChild(script);
+        window.addEventListener('load', () => {
+            if (typeof N8nChat !== 'undefined') {
+                N8nChat.createChat({
+                    webhookUrl: 'https://alerome99.app.n8n.cloud/webhook/0372e3f4-eadb-4863-8965-c3876d91f442/chat',
+                    mode: 'window',
+                    showWelcomeScreen: true
+                });
+                console.log("Chat cargado vía UNPKG");
+            } else {
+                console.error("Error: N8nChat sigue sin definirse. Bloqueo de red detectado.");
+            }
+        });
     </script>
 </body>
 </html>
